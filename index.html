@@ -3,18 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aadhaar Document Screening Demo</title>
+    <meta
+      name="description"
+      content="Client-side Aadhaar document screening demo with browser OCR, face detection, and scoring."
+    />
+    <title>Aadhaar Document Screening Demo | Harshvardhan Hajgude</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="page-shell">
       <section class="hero-card">
-        <p class="eyebrow">Embeddable Demo Popup</p>
+        <p class="eyebrow">Client-side verification demo</p>
         <h1>Aadhaar Document Screening Demo</h1>
         <p class="lead">
           Heuristic-only screening in the browser with local OCR and local face detection.
           No paid API, no API key, no official verification claims.
         </p>
+        <div class="hero-banner">
+          <span class="hero-banner-label">Live demo</span>
+          <a href="https://harsh3244.github.io/Verification-system/" target="_blank" rel="noreferrer">
+            Hosted on GitHub Pages
+          </a>
+        </div>
         <div class="hero-actions">
           <button class="primary" onclick="openVerificationModal()">Verify Aadhaar</button>
           <button class="secondary" id="openFromScriptBtn">Open via JS</button>
@@ -77,19 +87,12 @@
           </div>
         </div>
 
-        <section>
-        <div class="divider">
-        <footer >
-       <p>&copy; 2026 Aadhaar Document Screening Demo. All rights reserved. Harshvardhan Hajgude</p>
-       </footer>
-       </div>
-       </section>
       </section>
     </div>
 
-<footer >
-  <p>&copy; 2026 Aadhaar Document Screening Demo. All rights reserved. Harshvardhan Hajgude</p>
-</footer>
+    <footer class="site-footer">
+      <p>&copy; 2026 Aadhaar Document Screening Demo. All rights reserved. Harshvardhan Hajgude</p>
+    </footer>
 
     <script type="module" src="script.js"></script>
   </body>

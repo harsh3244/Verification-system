@@ -21,17 +21,32 @@ body {
   min-height: 100vh;
   color: var(--ink);
   font-family: "DM Sans", "Segoe UI", sans-serif;
+  position: relative;
   background:
     radial-gradient(circle at 8% 16%, #f8d59d 0%, transparent 28%),
     radial-gradient(circle at 92% 5%, #9fdbda 0%, transparent 22%),
     linear-gradient(150deg, var(--bg-1), var(--bg-2));
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.28) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.28) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+  opacity: 0.2;
+}
+
 .page-shell {
   display: grid;
   place-items: center;
-  min-height: 100vh;
-  padding: 24px;
+  gap: 18px;
+  min-height: calc(100vh - 36px);
+  padding: 24px 24px 10px;
 }
 
 .hero-card {
@@ -41,6 +56,35 @@ body {
   border-radius: 28px;
   box-shadow: var(--shadow);
   padding: 32px;
+}
+
+.hero-banner {
+  margin-top: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(15, 118, 110, 0.08);
+  border: 1px solid rgba(15, 118, 110, 0.12);
+}
+
+.hero-banner-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  font-weight: 700;
+}
+
+.hero-banner a {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.hero-banner a:hover {
+  text-decoration: underline;
 }
 
 .eyebrow {
@@ -82,6 +126,14 @@ h1 {
   margin-top: 14px;
   font-size: 0.84rem;
   color: var(--muted);
+}
+
+.site-footer {
+  width: min(780px, 100%);
+  color: var(--muted);
+  text-align: center;
+  font-size: 0.92rem;
+  padding: 0 8px 14px;
 }
 
 button,
@@ -302,5 +354,9 @@ select {
 @media (max-width: 920px) {
   .modal-body {
     grid-template-columns: 1fr;
+  }
+
+  .hero-card {
+    padding: 24px;
   }
 }

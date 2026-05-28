@@ -1,30 +1,58 @@
-# Aadhaar Document Screening Demo (Static)
+# Aadhaar Document Screening Demo
 
-This project is now a pure HTML/CSS/JavaScript popup demo.
+This is a fully client-side verification demo built with plain HTML, CSS, and JavaScript. It screens an uploaded document in the browser using local OCR, local face detection, and lightweight heuristics to produce a demo verdict.
 
-- No React
-- No Next.js
-- No TSX components
-- No paid OCR/vision API required
+Important: this is a screening demo only. It is not official Aadhaar verification and should not be presented as a legal or government identity check.
 
-Important disclaimer:
+## What It Does
 
-Demo screening only. This is not official Aadhaar verification.
+The app opens as a modal widget that can be embedded into any regular web page. A user enters their name, uploads an image or PDF, and the browser analyzes the file locally.
 
-## Files
+The current flow is:
 
-```text
-index.html
-styles.css
-script.js
-ocr.js
-faceDetection.js
-scoring.js
-eng.traineddata
-hin.traineddata
-```
+1. User opens the verification popup.
+2. User enters the full name printed on the document.
+3. User uploads a JPG, PNG, WEBP, or PDF file.
+4. The app runs OCR, face detection, and image-quality checks in the browser.
+5. A weighted heuristic score is calculated and mapped to a final demo verdict.
 
-## Run locally
+## Main Features
+
+- Modal popup with overlay and responsive layout.
+- Drag-and-drop upload plus file picker support.
+- PDF support through first-page conversion before analysis.
+- Local OCR using Tesseract.js with English + Hindi fallback.
+- Local face detection using the browser FaceDetector API when available.
+- Image-quality heuristics for blur, glare, brightness, and resolution.
+- Fuzzy keyword matching for Aadhaar-related text.
+- Fuzzy name matching against OCR output.
+- 12-digit number detection with masked display.
+- Weighted scoring with a 0-100 confidence-style output.
+- Clear demo verdicts such as Verified, Needs Manual Review, or Not Verified.
+
+## How The Analysis Works
+
+The logic is split across a few small files:
+
+- [script.js](script.js) coordinates upload handling, PDF conversion, OCR, face detection, and result rendering.
+- [ocr.js](ocr.js) wraps Tesseract.js and normalizes extracted text and lines.
+- [faceDetection.js](faceDetection.js) uses the browser FaceDetector API, then falls back to an uncertain status if the API is unavailable.
+- [scoring.js](scoring.js) performs keyword detection, name matching, number detection, image-quality analysis, and final verdict generation.
+
+The final output is intentionally conservative. If any of the core signals are weak or unavailable, the result can downgrade to manual review or unverified instead of forcing a positive match.
+
+## Tech Stack
+
+- Plain HTML for the UI shell.
+- Plain CSS for layout and styling.
+- Plain JavaScript modules for behavior.
+- Tesseract.js for OCR.
+- PDF.js for PDF-to-image conversion.
+- Native browser FaceDetector API when supported.
+
+## Local Setup
+
+Run the static server:
 
 ```bash
 npm run dev
@@ -36,44 +64,55 @@ Then open:
 http://localhost:5500
 ```
 
-## Embedding usage
+For the alternate port:
 
-Use the popup in any normal HTML page:
+```bash
+npm start
+```
+
+## Embedding
+
+You can embed the widget into any HTML page and open it from a button or script call.
 
 ```html
 <button onclick="openVerificationModal()">Verify Aadhaar</button>
 ```
 
-The global APIs exposed by `script.js` are:
+The global functions exposed by the app are:
 
 - `openVerificationModal()`
 - `closeVerificationModal()`
 
-## Functional coverage
+## Repository Structure
 
-- Modal popup with overlay, close button, and mobile responsive layout.
-- Drag/drop and file picker upload.
-- Name input and Analyze action.
-- Local OCR via `tesseract.js` in browser.
-- Local face detection via browser `FaceDetector` API with `uncertain` fallback.
-- Fuzzy Aadhaar keyword detection.
-- Fuzzy name match percentage.
-- 12-digit number pattern detection with masking (`XXXX-XXXX-1234`).
-- Image quality checks: blur, brightness, glare, and resolution.
-- Weighted score (total 100) and verdict bands.
-- Reasons list and confidence output.
-- Mock case handling:
-  - clear Aadhaar-like image
-  - blurred image
-  - wrong document
-  - no face
-  - name mismatch
+```text
+index.html
+styles.css
+script.js
+ocr.js
+faceDetection.js
+scoring.js
+eng.traineddata
+hin.traineddata
+demo/
+public/
+```
 
-## Security guardrails
+## Data And Safety Notes
 
-- File type restricted to JPG/PNG/WEBP.
-- Max size: 5MB.
-- No permanent image storage.
-- In-memory analysis only.
-- No full Aadhaar number shown.
-- No API key required by default.
+- Files are processed in browser memory only.
+- No API key is required by default.
+- No permanent document storage is implemented.
+- Full Aadhaar numbers are not shown back in the UI.
+- The widget limits uploads to JPG, PNG, WEBP, and PDF files up to 10 MB.
+
+## Known Limitations
+
+- Verdicts are heuristic and can produce false positives or false negatives.
+- Face detection depends on browser support for the FaceDetector API.
+- OCR quality depends on image clarity, lighting, and scan quality.
+- This project should be treated as a demo or prototype, not a compliance-grade identity system.
+
+## License
+
+See [LICENSE](LICENSE) for the project license.

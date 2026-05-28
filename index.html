@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aadhaar Document Screening Demo</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero-card">
+        <p class="eyebrow">Embeddable Demo Popup</p>
+        <h1>Aadhaar Document Screening Demo</h1>
+        <p class="lead">
+          Heuristic-only screening in the browser with local OCR and local face detection.
+          No paid API, no API key, no official verification claims.
+        </p>
+        <div class="hero-actions">
+          <button class="primary" onclick="openVerificationModal()">Verify Aadhaar</button>
+          <button class="secondary" id="openFromScriptBtn">Open via JS</button>
+        </div>
+        <p class="inline-code">window.openVerificationModal()</p>
+      </section>
+    </main>
+
+    <div id="verificationOverlay" class="overlay hidden" aria-hidden="true">
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <header class="modal-header">
+          <div>
+            <p class="eyebrow">Popup Screening Widget</p>
+            <h2 id="modalTitle">Aadhaar Document Screening Demo</h2>
+            <p class="subtext">
+              Demo screening only.
+            </p>
+          </div>
+          <button id="closeModalBtn" class="icon-btn" aria-label="Close">x</button>
+        </header>
+
+        <div class="modal-body">
+          <div class="input-column">
+            <label class="field-label" for="fullNameInput">Full Name</label>
+            <input
+              id="fullNameInput"
+              type="text"
+              placeholder="As printed on the document"
+              autocomplete="name"
+            />
+
+            <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Upload image or PDF">
+              <input id="fileInput" type="file" accept="image/jpeg,image/png,image/webp,application/pdf" hidden />
+              <p class="drop-title">Drop image here or click to upload</p>
+              <p class="drop-sub">Accepted: JPG, PNG, WEBP, PDF (max 10MB)</p>
+              <img id="previewImage" class="preview hidden" alt="Uploaded preview" />
+            </div>
+
+            <div class="actions-row">
+              <button id="analyzeBtn" class="primary">Analyze</button>
+              <button id="resetBtn" class="secondary" type="button">Reset</button>
+            </div>
+
+            <p id="statusMessage" class="status" aria-live="polite"></p>
+          </div>
+
+          <div class="result-column">
+            <div class="result-header">
+              <h3>Result</h3>
+              <span id="confidenceBadge" class="badge">0%</span>
+            </div>
+            <p id="verdictText" class="verdict">Waiting for analysis</p>
+
+            <ul id="resultFacts" class="facts"></ul>
+
+            <h4>Reasons</h4>
+            <ul id="reasonsList" class="reasons"></ul>
+
+            <p class="disclaimer">Demo screening only. This is not official Aadhaar verification.</p>
+          </div>
+        </div>
+
+        <section>
+        <div class="divider">
+        <footer >
+       <p>&copy; 2023 Aadhaar Document Screening Demo. All rights reserved.</p>
+       </footer>
+       </div>
+       </section>
+      </section>
+    </div>
+
+<footer >
+  <p>&copy; 2023 Aadhaar Document Screening Demo. All rights reserved.</p>
+</footer>
+
+    <script type="module" src="script.js"></script>
+  </body>
+</html>

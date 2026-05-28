@@ -70,6 +70,12 @@ For the alternate port:
 npm start
 ```
 
+## Live Demo
+
+The project is hosted on GitHub Pages here:
+
+https://harsh3244.github.io/Verification-system/
+
 ## Embedding
 
 You can embed the widget into any HTML page and open it from a button or script call.
